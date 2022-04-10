@@ -6,7 +6,9 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 # Internal imports
 from models.User import UserModel
+from models.Course import CourseModel
 from controllers.users import UserRegister, UserLogin
+from controllers.courses import AddCourse, CoursesList
 from db import db
 
 app = Flask(__name__)
@@ -24,6 +26,7 @@ jwt = JWTManager(app)
 @app.before_first_request
 def init_db():
     UserModel.__table__.create(db.session.bind, checkfirst=True)
+    CourseModel.__table__.create(db.session.bind, checkfirst=True)
 
 @app.route("/")
 def index():
@@ -32,6 +35,8 @@ def index():
 # routes
 api.add_resource(UserRegister, "/api/users/register")
 api.add_resource(UserLogin, "/api/users/login")
+api.add_resource(AddCourse, "/api/course/add")
+api.add_resource(CoursesList, "/api/courses")
 
 if __name__ == "__main__":
     app.run()

@@ -1,14 +1,15 @@
 from db import db
 
 class CourseModel(db.Model):
+    __tablename__  = "courses"
+
     id              = db.Column(db.Integer, primary_key=True)
     name            = db.Column(db.String, nullable=False)
     description     = db.Column(db.Text, nullable=False)
     price           = db.Column(db.Float, nullable=False)
     is_active       = db.Column(db.Boolean, default=True)
 
-    def __init__(self, id, name, description, price, is_active):
-        self.id             = id
+    def __init__(self, name, description, price, is_active):
         self.name           = name
         self.description    = description
         self.price          = price
